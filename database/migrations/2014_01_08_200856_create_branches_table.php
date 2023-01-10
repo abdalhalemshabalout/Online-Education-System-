@@ -14,7 +14,13 @@ class CreateBranchesTable extends Migration
     public function up()
     {
         Schema::create('branches', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('classroom_id')
+                ->nullable()
+                ->constrained('classrooms')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('name');
             $table->timestamps();
         });
     }

@@ -14,7 +14,17 @@ class CreateHomeworkTable extends Migration
     public function up()
     {
         Schema::create('homework', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('lesson_content_id')
+                ->constrained('lesson_contents')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('name');
+            $table->longText('description')->nullable();
+            $table->string('document')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->boolean('isActive')->default(1);
             $table->timestamps();
         });
     }

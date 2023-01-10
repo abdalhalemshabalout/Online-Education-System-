@@ -14,7 +14,16 @@ class CreateSendTestAnswersTable extends Migration
     public function up()
     {
         Schema::create('send_test_answers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('student_id')
+                ->constrained('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('question_id')
+                ->constrained('test_questions')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('answer')->default('false')->nullable();
             $table->timestamps();
         });
     }

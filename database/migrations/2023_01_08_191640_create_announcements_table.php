@@ -14,7 +14,15 @@ class CreateAnnouncementsTable extends Migration
     public function up()
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('personal_id')
+            ->constrained('personals')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->string('head');
+            $table->longText('body');
+            $table->boolean('isActive')->default(1);
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }

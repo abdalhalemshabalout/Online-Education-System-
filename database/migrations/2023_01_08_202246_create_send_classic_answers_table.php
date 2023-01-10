@@ -14,7 +14,17 @@ class CreateSendClassicAnswersTable extends Migration
     public function up()
     {
         Schema::create('send_classic_answers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('student_id')
+                ->constrained('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('question_id')
+                ->constrained('classic_questions')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->longText('answer_text')->default('false')->nullable();
+            $table->string('answer_file')->default('false')->nullable();
             $table->timestamps();
         });
     }

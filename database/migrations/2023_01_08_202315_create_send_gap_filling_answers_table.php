@@ -14,7 +14,16 @@ class CreateSendGapFillingAnswersTable extends Migration
     public function up()
     {
         Schema::create('send_gap_filling_answers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('student_id')
+                ->constrained('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('question_id')
+                ->constrained('gap_filling_questions')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->longText('answer_text')->default('false')->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClassroomStudentsTable extends Migration
+class CreateBranchAnnouncementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateClassroomStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('classroom_students', function (Blueprint $table) {
+        Schema::create('branch_announcements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('classroom_id')
                 ->constrained('classrooms')
@@ -23,10 +23,10 @@ class CreateClassroomStudentsTable extends Migration
                 ->constrained('branches')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('student_id')
-                ->constrained('students')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->string('head');
+            $table->longText('body');
+            $table->boolean('isActive')->default(1);
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }
@@ -38,6 +38,6 @@ class CreateClassroomStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classroom_students');
+        Schema::dropIfExists('branch_announcements');
     }
 }

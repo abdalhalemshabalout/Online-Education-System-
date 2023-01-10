@@ -14,7 +14,16 @@ class CreateLessonProgramsTable extends Migration
     public function up()
     {
         Schema::create('lesson_programs', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('classroom_id')
+                ->constrained('classrooms')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('branch_id')
+                ->constrained('branches')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('program');
             $table->timestamps();
         });
     }

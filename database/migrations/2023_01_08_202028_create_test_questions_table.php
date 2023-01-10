@@ -14,7 +14,22 @@ class CreateTestQuestionsTable extends Migration
     public function up()
     {
         Schema::create('test_questions', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->integer('question_type')->default(1);
+            $table->foreignId('exam_id')
+                ->constrained('exams')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->integer('question_number');
+            $table->string('question')->nullable();
+            $table->string('image')->nullable();
+            $table->string('answer_one');
+            $table->string('answer_two');
+            $table->string('answer_three')->nullable();
+            $table->string('answer_four')->nullable();
+            $table->string('answer_five')->nullable();
+            $table->string('correct_answer')->nullable();
+            $table->double('answer_point')->nullable();
             $table->timestamps();
         });
     }

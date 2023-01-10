@@ -14,7 +14,16 @@ class CreateGapFillingQuestionsTable extends Migration
     public function up()
     {
         Schema::create('gap_filling_questions', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->integer('question_type')->default(4);
+            $table->foreignId('exam_id')
+                ->constrained('exams')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->integer('question_number');
+            $table->string('question')->nullable();
+            $table->string('image')->nullable();
+            $table->double('answer_point')->nullable();
             $table->timestamps();
         });
     }

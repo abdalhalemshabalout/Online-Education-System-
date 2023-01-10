@@ -14,7 +14,15 @@ class CreateLessonAnnouncementsTable extends Migration
     public function up()
     {
         Schema::create('lesson_announcements', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('lesson_id')
+                ->constrained('lessons')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('head');
+            $table->longText('body');
+            $table->boolean('isActive')->default(1);
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }

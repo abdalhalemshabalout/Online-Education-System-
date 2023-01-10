@@ -14,7 +14,16 @@ class CreateSendHomeworkTable extends Migration
     public function up()
     {
         Schema::create('send_homework', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('homework_id')
+                ->constrained('homework')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('student_id')
+                ->constrained('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('document');
             $table->timestamps();
         });
     }

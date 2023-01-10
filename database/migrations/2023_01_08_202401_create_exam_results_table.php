@@ -14,7 +14,16 @@ class CreateExamResultsTable extends Migration
     public function up()
     {
         Schema::create('exam_results', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('exam_id')
+                ->constrained('exams')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('student_id')
+                ->constrained('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->integer('student_point');
             $table->timestamps();
         });
     }

@@ -14,7 +14,13 @@ class CreateLessonContentsTable extends Migration
     public function up()
     {
         Schema::create('lesson_contents', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('lesson_id')
+                ->constrained('lessons')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('content_name');
+            $table->boolean('isDeleted')->nullable()->default(0);
             $table->timestamps();
         });
     }

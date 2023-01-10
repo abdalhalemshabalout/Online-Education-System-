@@ -14,8 +14,23 @@ class CreateLessonStudentsTable extends Migration
     public function up()
     {
         Schema::create('lesson_students', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('id');
+            $table->foreignId('classroom_id')
+                ->constrained('classrooms')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('branch_id')
+                ->constrained('branches')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('student_id')
+                ->constrained('students')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('lesson_id')
+                ->constrained('lessons')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

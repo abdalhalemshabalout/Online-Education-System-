@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSendTrueFalseAnswersTable extends Migration
+class CreateAttendanceTeachersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,14 @@ class CreateSendTrueFalseAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('send_true_false_answers', function (Blueprint $table) {
+        Schema::create('attendance_teachers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('student_id')
-                ->constrained('students')
+            $table->foreignId('teacher_id')
+                ->constrained('teachers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('question_id')
-                ->constrained('true_false_questions')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->boolean('answer')->default(false)->nullable();
+            $table->date('date');
+            $table->boolean('adettence')->default(false);
             $table->timestamps();
         });
     }
@@ -35,6 +32,6 @@ class CreateSendTrueFalseAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('send_true_false_answers');
+        Schema::dropIfExists('attendance_teachers');
     }
 }
