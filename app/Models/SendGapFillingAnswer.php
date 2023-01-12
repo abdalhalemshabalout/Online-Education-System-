@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class SendGapFillingAnswer extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'id',
+        'student_id',
+        'question_id',
+        'answer_text',
+    ];
 }

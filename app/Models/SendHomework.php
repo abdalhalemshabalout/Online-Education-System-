@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class SendHomework extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'homework_id',
+        'student_id',
+        'document',
+    ];
+    
 }

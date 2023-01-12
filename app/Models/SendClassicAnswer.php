@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class SendClassicAnswer extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'student_id',
+        'question_id',
+        'answer_text',
+        'answer_file',
+    ];
 }
