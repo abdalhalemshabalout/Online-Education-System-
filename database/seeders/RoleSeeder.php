@@ -27,6 +27,9 @@ class RoleSeeder extends Seeder
             4=>[
                 'roles_name'=>'Student',
             ],
+            5=>[
+                'roles_name'=>'Parent',
+            ],
         ]);
     }
 }
