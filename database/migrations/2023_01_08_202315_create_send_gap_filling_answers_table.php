@@ -19,6 +19,10 @@ class CreateSendGapFillingAnswersTable extends Migration
                 ->constrained('students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('exam_id')
+                ->constrained('exams')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('question_id')
                 ->constrained('gap_filling_questions')
                 ->onUpdate('cascade')

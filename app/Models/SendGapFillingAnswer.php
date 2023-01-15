@@ -12,6 +12,7 @@ class SendGapFillingAnswer extends Model
     protected $fillable = [
         'id',
         'student_id',
+        'exam_id',
         'question_id',
         'answer_text',
     ];

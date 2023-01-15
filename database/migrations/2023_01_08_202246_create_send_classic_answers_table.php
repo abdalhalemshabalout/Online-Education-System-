@@ -19,6 +19,10 @@ class CreateSendClassicAnswersTable extends Migration
                 ->constrained('students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('exam_id')
+                ->constrained('exams')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('question_id')
                 ->constrained('classic_questions')
                 ->onUpdate('cascade')

@@ -19,6 +19,10 @@ class CreateSendTrueFalseAnswersTable extends Migration
                 ->constrained('students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('exam_id')
+                ->constrained('exams')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('question_id')
                 ->constrained('true_false_questions')
                 ->onUpdate('cascade')
