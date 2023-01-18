@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SendArrangeAnswer extends Model
+class ExamAnswer extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,8 @@ class SendArrangeAnswer extends Model
         'student_id',
         'exam_id',
         'question_id',
-        'answer_text',
+        'answer_id',
+        'question_type',
+        'question_number'
     ];
 }

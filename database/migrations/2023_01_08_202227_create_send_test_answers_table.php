@@ -27,7 +27,7 @@ class CreateSendTestAnswersTable extends Migration
                 ->constrained('test_questions')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('answer')->default('false')->nullable();
+            $table->string('answer')->nullable();
             $table->timestamps();
         });
     }

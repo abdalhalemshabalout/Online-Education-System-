@@ -27,8 +27,7 @@ class CreateSendClassicAnswersTable extends Migration
                 ->constrained('classic_questions')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->longText('answer_text')->default('false')->nullable();
-            $table->string('answer_file')->default('false')->nullable();
+            $table->string('answer')->nullable();
             $table->timestamps();
         });
     }

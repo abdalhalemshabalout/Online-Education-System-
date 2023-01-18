@@ -27,7 +27,7 @@ class CreateSendGapFillingAnswersTable extends Migration
                 ->constrained('gap_filling_questions')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->longText('answer_text')->default('false')->nullable();
+            $table->longText('answer')->default('false')->nullable();
             $table->timestamps();
         });
     }
