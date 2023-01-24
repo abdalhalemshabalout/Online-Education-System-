@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClassroomController;
 use App\Http\Controllers\Api\BranchController;
-
+use App\Http\Controllers\Api\LessonController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,6 +48,13 @@ Route::group([
     Route::delete('delete-branch/{id}', [BranchController::class, 'deleteBranch'])->middleware('auth:sanctum');
     Route::get('get-list-branch', [BranchController::class, 'getBranch'])->middleware('auth:sanctum');
     Route::post('get-list-branch-by-classroom', [BranchController::class, 'getBranchByClassroomId'])->middleware('auth:sanctum');
+    //Lesson Route
+    Route::post('add-lesson', [LessonController::class, 'addLesson'])->middleware('auth:sanctum');
+    Route::post('update-lesson/{id}', [LessonController::class, 'updateLesson'])->middleware('auth:sanctum');
+    Route::delete('delete-lesson/{id}', [LessonController::class, 'deleteLesson'])->middleware('auth:sanctum');
+    Route::get('get-list-lesson', [LessonController::class, 'getAllLessons'])->middleware('auth:sanctum');
+    Route::post('get-list-lesson-by-classroom', [LessonController::class, 'getlessonsByClassroom'])->middleware('auth:sanctum');
+    Route::post('get-list-lesson-by-branch', [LessonController::class, 'getLessonsByBranch'])->middleware('auth:sanctum');
 
     
 });
