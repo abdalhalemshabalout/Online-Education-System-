@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AnnouncementController;
 use App\Http\Controllers\Api\ClassroomController;
 use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\LessonController;
@@ -31,12 +33,18 @@ Route::group([
 Route::group([
     'prefix' => 'admin'
 ], function () {
-
+    //Personal Route
+    Route::post('add-personal', [UserController::class, 'CreatePersonal'])->middleware('auth:sanctum');
+    Route::delete('delete-personal/{id}', [UserController::class, 'deletePersonal'])->middleware('auth:sanctum');
 });
 Route::group([
     'prefix' => 'personal'
 ], function () {
-
+    //Announcement Route
+    Route::post('add-announcement', [AnnouncementController::class, 'addAnnouncement'])->middleware('auth:sanctum');
+    Route::post('update-announcement/{id}', [AnnouncementController::class, 'updateAnnouncement'])->middleware('auth:sanctum');
+    Route::delete('delete-announcement/{id}', [AnnouncementController::class, 'deleteAnnouncement'])->middleware('auth:sanctum');
+    Route::get('get-list-announcement', [AnnouncementController::class, 'getAnnouncement'])->middleware('auth:sanctum');
     //Class Route
     Route::post('add-classroom', [ClassroomController::class, 'addClassroom'])->middleware('auth:sanctum');
     Route::post('update-classroom/{id}', [ClassroomController::class, 'updateClassroom'])->middleware('auth:sanctum');
