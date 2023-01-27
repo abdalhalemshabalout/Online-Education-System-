@@ -23,6 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Everyone can watch
+Route::get('get-list-announcement', [AnnouncementController::class, 'getAnnouncements']);
+Route::get('get-list-announcement/{id}', [AnnouncementController::class, 'getAnnouncement']);
+
 Route::group([
     'prefix' => 'auth'
 ], function () {
@@ -44,7 +48,6 @@ Route::group([
     Route::post('add-announcement', [AnnouncementController::class, 'addAnnouncement'])->middleware('auth:sanctum');
     Route::post('update-announcement/{id}', [AnnouncementController::class, 'updateAnnouncement'])->middleware('auth:sanctum');
     Route::delete('delete-announcement/{id}', [AnnouncementController::class, 'deleteAnnouncement'])->middleware('auth:sanctum');
-    Route::get('get-list-announcement', [AnnouncementController::class, 'getAnnouncement'])->middleware('auth:sanctum');
     //Class Route
     Route::post('add-classroom', [ClassroomController::class, 'addClassroom'])->middleware('auth:sanctum');
     Route::post('update-classroom/{id}', [ClassroomController::class, 'updateClassroom'])->middleware('auth:sanctum');

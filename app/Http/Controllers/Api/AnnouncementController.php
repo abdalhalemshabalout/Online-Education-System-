@@ -36,10 +36,15 @@ class AnnouncementController extends ApiController
     //Update Announcement
     public function updateAnnouncement(Request $request ,$id){
         $user = auth()->user();
-        if($user->tokenCan('Admin') || $user->tokenCan('Personal') ){
+        if($user->tokenCan('Personal') ){
             try {
+            $user = User::where('users.id','=',$request->user()->id)
+            ->join('personals','.user_id','personals.id')->select('personals.id')->get('personals.id');
+            $userId =$user[0]['id'];
             $update_announcement = Announcement::where('id', $id)->update([
-                'name' => $request->name,
+                'personal_id' => $userId,
+                'head' => $request->head,
+                'body' => $request->body,
             ]);
             $message = 'Announcement updated successfully.';
             return $this->sendResponse($update_announcement, $message);
@@ -53,7 +58,7 @@ class AnnouncementController extends ApiController
     //Delete Announcement
     public function deleteAnnouncement(Request $request,$id){
         $user = auth()->user();
-        if($user->tokenCan('Admin') || $user->tokenCan('Personal') ){
+        if($user->tokenCan('Personal') ){
             try {
             $announcement_find = Announcement::find($id);
             $delete_announcement = $announcement_find->delete();
@@ -66,10 +71,26 @@ class AnnouncementController extends ApiController
         }
         return response()->json(['success'=>false]);
     }
-    //Get Announcement
-    public function getAnnouncement(){
-        $get_announcement=Announcement::select('id','name')->get();
+    //Get Announcements
+    public function getAnnouncements(){
+        $get_announcement=Announcement::
+        join('personals','announcements.personal_id','personals.id')
+        ->select('announcements.id',
+        Personal::raw("CONCAT(personals.name,' ',personals.surname) as personalId"),
+        'announcements.head','announcements.body')->get();
         $message ='list Announcement';
+        return $this->sendResponse($get_announcement,$message);
+    }
+    //Get Announcement by id
+    public function getAnnouncement(Request $request){
+        $get_announcement=Announcement::where('announcements.id','=',$request->id)
+        ->join('personals','announcements.personal_id','personals.id')
+        ->select(
+        'announcements.id',
+        Personal::raw("CONCAT(personals.name,' ',personals.surname) as personalId"),
+        'announcements.head','announcements.body')
+        ->get();
+        $message ='Announcement';
         return $this->sendResponse($get_announcement,$message);
     }
 }
