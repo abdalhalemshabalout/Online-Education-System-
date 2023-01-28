@@ -26,7 +26,6 @@ class Teacher extends Model
         'place_of_birth',
         'birth_date',
         'address',
-        'management_start_date',
         'department_graduated',
         'isActive',
         'isDeleted',

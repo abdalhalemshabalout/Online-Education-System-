@@ -45,7 +45,7 @@ class BranchController extends ApiController
         return response()->json(['success'=>false]);
     }
     //Delete Branch
-    public function deleteBranch(Request $request,$id){
+    public function deleteBranch($id){
         $user = auth()->user();
         if($user->tokenCan('Admin') || $user->tokenCan('Personal') ){
             try {

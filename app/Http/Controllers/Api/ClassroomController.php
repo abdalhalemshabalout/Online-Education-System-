@@ -44,7 +44,7 @@ class ClassroomController extends ApiController
         return response()->json(['success'=>false]);
     }
     //Delete Classroom
-    public function deleteClassroom(Request $request,$id){
+    public function deleteClassroom($id){
         $user = auth()->user();
         if($user->tokenCan('Admin') || $user->tokenCan('Personal') ){
             try {
