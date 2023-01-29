@@ -19,16 +19,15 @@ class AuthController extends ApiController
     public function register(Request $request)
     {
         $messages = [
-            'email.required' => 'E-mail alanı boş bırakılamaz.',
-            'email.unique' => 'Girdiğiniz E-maile ait kayıt bulunmaktadır.',
-            'name.required' => 'İsim alanı boş bırakılamaz.',
-            'name.min' => 'İsim 3 karakterden küçük olamaz.',
-            'surname.required' => 'Soyad alanı boş bırakılamaz.',
-            'password.required' => 'Lütfen şifrenizi giriniz.',
-            'c_password.required' => 'Lütfen şifre tekrarı giriniz.',
-            'c_password.same' => 'Şifre tekrarı eşleşmiyor.',
-            'password.min' => 'Şifre 6 karakterden küçük olamaz.',
-            'telephone.digits' => 'Telefon numaranızı (5xxxxxxxxx) olarak giriniz.',
+            'email.required' => 'Email field cannot be left blank.',
+            'email.unique' => 'There is a record of the e-mail you entered..',
+            'name.required' => 'Name field cannot be left blank.',
+            'name.min' => 'Name cannot be less than 3 characters.',
+            'surname.required' => 'Surname field cannot be left blank.',
+            'password.required' => 'Please enter your password.',
+            'c_password.required' => 'Please re-enter password.',
+            'c_password.same' => 'Password repeat does not match.',
+            'password.min' => 'Password cannot be less than 6 characters.',
         ];
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
@@ -40,23 +39,19 @@ class AuthController extends ApiController
 
         ], $messages);
         if ($validator->fails()) {
-            return $this->sendError('Doğrulama hatası.', $validator->errors());
+            return $this->sendError('validation error.', $validator->errors());
         }
-        $img = 'images/profile/admins/';
-        if (($request->img)!='') {
+        if (!empty($request->img)) {
             $file =$request->file('img');
             $extension = $file->getClientOriginalExtension();
             $img = time().'.' . $extension;
             $file->move(public_path('images/profile/admins/'), $img);
             $data['image']= 'images/profile/admins/'.$img;
-            $img = 'images/profile/admins/' . $img;
-        }
-        else if(($request->img)==''&&$request->gender=='bay'){
-            $img='01.png';
-        }
-        else if(($request->img)==''&&$request->gender=='bayan'){
-            $img='01.png';
-        }
+            $img='images/profile/admins/' . $img;
+            }
+            else{
+                $img=null;
+            }
         $admin = Admin::create([
             'name' => $request->name,
             'surname' => $request->surname,
@@ -83,7 +78,7 @@ class AuthController extends ApiController
              'password' => 'required|min:6',
         ]);
         if ($validator->fails()) {
-            return $this->sendError('Lütfen e-mail ve parola kontrol ediniz.');
+            return $this->sendError('Please check your e-mail and password.');
         }
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $auth = Auth::user();
@@ -127,18 +122,18 @@ class AuthController extends ApiController
             'password'=>$auth['password'],
             'username'=>$auth['email'],
             ] ;
-            $message = 'Giriş başarılı';
+            $message = 'Login successful';
 
             return $this->sendResponse($n2, $message);
         } else {
-            return $this->sendError('Giriş başarısız.');
+            return $this->sendError('Login failed.');
         }
     }
     /****LogOut Function*****/
     public function logOut(Request $request){
         try{
             $request->user()->tokens()->delete();
-            return response()->json(['status'=>'true','message'=>"Çıkış Yapıldı",'data'=>[]]);
+            return response()->json(['status'=>'true','message'=>"Checked Out",'data'=>[]]);
         } catch(\Exception $e){
             return response()->json(['status'=>'false','message'=>$e->getMessage(),'data'=>[]],500);
         }

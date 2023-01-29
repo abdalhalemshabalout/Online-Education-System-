@@ -31,6 +31,7 @@ class CreateLessonStudentsTable extends Migration
                 ->constrained('lessons')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ClassroomAnnouncementController;
 use App\Http\Controllers\Api\BranchAnnouncementController;
 use App\Http\Controllers\Api\ListForStudentController;
 use App\Http\Controllers\Api\ListForTeacherController;
+use App\Http\Controllers\Api\PersonalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,6 +97,12 @@ Route::group([
     Route::get('get-list-lesson', [LessonController::class, 'getAllLessons'])->middleware('auth:sanctum');
     Route::post('get-list-lesson-by-classroom', [LessonController::class, 'getlessonsByClassroom'])->middleware('auth:sanctum');
     Route::post('get-list-lesson-by-branch', [LessonController::class, 'getLessonsByBranch'])->middleware('auth:sanctum');
+    //Lesson Teacher Route
+    Route::post('add-teacher-to-lesson', [PersonalController::class, 'AddTeacherToLesson'])->middleware('auth:sanctum');
+    Route::delete('delete-teacher-from-lesson/{id}', [PersonalController::class, 'deleteTeacherFromLesson'])->middleware('auth:sanctum');
+    //Lesson Student Route
+    Route::post('add-student-to-lesson', [PersonalController::class, 'AddStudentToLesson'])->middleware('auth:sanctum');
+    Route::delete('delete-student-from-lesson/{id}', [PersonalController::class, 'deleteStudentFromLesson'])->middleware('auth:sanctum');
     //Book Route
     Route::post('add-book', [BookController::class, 'AddBook'])->middleware('auth:sanctum');
     Route::post('update-book/{id}', [BookController::class, 'updateBook'])->middleware('auth:sanctum');
