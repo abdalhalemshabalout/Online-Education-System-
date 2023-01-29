@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Models\Classroom;
 use App\Http\Resources\BranchResource;
+use App\Http\Resources\BranchTeachersResource;
+use App\Models\ClassroomTeacher;
+
 class BranchController extends ApiController
 {
      //Add Branch
@@ -73,5 +76,24 @@ class BranchController extends ApiController
         ->select('branches.id','branches.classroom_id as classroomId','branches.name')->get();
         $message ='list Branch';
         return $this->sendResponse($get_branch,$message);
+    }
+    //Add Teacher To Branch
+    public function addTeacherToBranch(Request $request){
+        $user= auth()->user();
+        if($user->tokenCan('Personal')){
+            try{
+                $add_teacher_to_branch=ClassroomTeacher::create([
+                    'classroom_id'=>$request->classroomId,
+                    'branch_id'=>$request->branchId,
+                    'teacher_id'=>$request->teacherId,
+                ]);
+                $message='The teacher has been added to the branch successfully';
+                return $this->sendResponse(new BranchTeachersResource($add_teacher_to_branch),$message);
+            }catch(\Exception $e){
+                $message='Something went wrong.';
+                return $this->sendError($message);
+            }
+        }
+        return response()->json(['success'=>false]);
     }
 }

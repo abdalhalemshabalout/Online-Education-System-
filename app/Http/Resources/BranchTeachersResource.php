@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BranchAnnouncementResource extends JsonResource
+class BranchTeachersResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,8 @@ class BranchAnnouncementResource extends JsonResource
         return
         [
             'classroomId'=>$this->classroom_id,
-            'branchId'=>$this->branch_id,
-            'head' => $this->head,   
-            'body' => $this->body,                     
-        ];       
+            'branchId' => $this->branch_id,     
+            'teacherId'=>$this->teacher_id,
+        ]; 
     }
 }

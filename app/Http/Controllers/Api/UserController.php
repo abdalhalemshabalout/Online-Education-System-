@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClassroomStudent;
 use App\Models\Personal;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -71,14 +72,14 @@ class UserController extends ApiController
             'department_graduated'=>$request->departmentGraduated,
         ]);
         $user = Personal::find($personal->id);
-        $new_user=User::create([
+        User::create([
             'user_id'=>$user->id,
             'email'=> $user->email,
             'password'=>$user->password,
             'role_id'=>2
         ]);
         $message = 'Personal added successfully';
-        return $this->sendResponse($new_user, $message);
+        return $this->sendResponse($personal, $message);
         }
         return response()->json(['success'=>false]);
     }
@@ -158,14 +159,14 @@ class UserController extends ApiController
            'department_graduated'=>$request->departmentGraduated,
        ]);
        $user = Teacher::find($teacher->id);
-       $new_user=User::create([
+       User::create([
           'user_id'=>$user->id,
           'email'=> $user->email,
           'password'=>$user->password,
           'role_id'=>3
        ]);
        $message = 'Teacher added successfully';
-           return $this->sendResponse($new_user, $message);
+           return $this->sendResponse($teacher, $message);
        }
            return response()->json(['success'=>false]);
     } 
@@ -249,14 +250,19 @@ class UserController extends ApiController
                 'start_date'=>$request->startDate,
             ]);
             $user = Student::find($student->id);
-            $new_user=User::create([
+            User::create([
                 'user_id'=>$user->id,
                 'email'=> $user->email,
                 'password'=>$user->password,
                 'role_id'=>4
             ]);
+            ClassroomStudent::create([
+                'student_id'=>$user->id,
+                'classroom_id'=> $user->classroom_id,
+                'branch_id'=>$user->branch_id,
+            ]);
             $message = 'Student added successfully';
-            return $this->sendResponse($new_user, $message);
+            return $this->sendResponse($student, $message);
         }
         return response()->json(['success'=>false]);
        

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Http\Resources\ClassroomResource;
+use App\Models\ClassroomTeacher;
 
 class ClassroomController extends ApiController
 {

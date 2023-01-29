@@ -44,7 +44,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::get('get-all-teachers', [ListForTeacherController::class, 'getAllTeachers'])->middleware('auth:sanctum');
     Route::get('get-all-students', [ListForStudentController::class, 'getAllStudents'])->middleware('auth:sanctum');
     Route::get('get-all-books', [BookController::class, 'getAllBook'])->middleware('auth:sanctum');
-    
+    Route::get('get-teacher-class/{id}', [ListForTeacherController::class, 'getTeachersByClassId'])->middleware('auth:sanctum');
+    Route::get('get-teacher-branch/{id}', [ListForTeacherController::class, 'geTeachersByBranchId'])->middleware('auth:sanctum');
+    Route::get('get-teacher-lesson/{id}', [ListForTeacherController::class, 'getTeachersByLessonId'])->middleware('auth:sanctum');
+    Route::get('get-student-class/{id}', [ListForStudentController::class, 'getStudentsByClassId'])->middleware('auth:sanctum');
+    Route::get('get-student-branch/{id}', [ListForStudentController::class, 'geStudentsByBranchId'])->middleware('auth:sanctum');
+    Route::get('get-student-lesson/{id}', [ListForStudentController::class, 'getStudentsByLessonId'])->middleware('auth:sanctum');
     
 
 Route::group([
@@ -90,6 +95,8 @@ Route::group([
     Route::delete('delete-branch/{id}', [BranchController::class, 'deleteBranch'])->middleware('auth:sanctum');
     Route::get('get-list-branch', [BranchController::class, 'getBranch'])->middleware('auth:sanctum');
     Route::post('get-list-branch-by-classroom', [BranchController::class, 'getBranchByClassroomId'])->middleware('auth:sanctum');
+    Route::post('add-teacher-to-branch', [BranchController::class, 'addTeacherToBranch'])->middleware('auth:sanctum');
+
     //Lesson Route
     Route::post('add-lesson', [LessonController::class, 'addLesson'])->middleware('auth:sanctum');
     Route::post('update-lesson/{id}', [LessonController::class, 'updateLesson'])->middleware('auth:sanctum');
