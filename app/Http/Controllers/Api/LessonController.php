@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Redis;
 
 class LessonController extends ApiController
 {
-      //Add Lesson
-      public function addLesson(Request $request){
+    //Add Lesson
+    public function addLesson(Request $request){
         $user = auth()->user();
         if($user->tokenCan('Admin') || $user->tokenCan('Personal') ){
             try {
@@ -53,7 +53,7 @@ class LessonController extends ApiController
         return response()->json(['success'=>false]);
     }
     //Delete Lesson
-    public function deleteLesson(Request $request,$id){
+    public function deleteLesson($id){
         $user = auth()->user();
         if($user->tokenCan('Admin') || $user->tokenCan('Personal') ){
             try {

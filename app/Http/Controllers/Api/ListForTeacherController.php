@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassroomTeacher;
 use App\Models\LessonTeacher;
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ListForTeacherController extends ApiController
@@ -63,5 +64,24 @@ class ListForTeacherController extends ApiController
         )->get();
         $message='lesson Teachers';
         return $this->sendResponse($teachers,$message);
+    }
+    //Teacher lessons by teacher id
+    public function getTeacherLessons(Request $request){
+        $teacher_lessons=User::where('users.id','=',$request->user()->id)
+        ->join('lesson_teachers','users.user_id','lesson_teachers.teacher_id')
+        ->join('lessons','lesson_teachers.lesson_id','lessons.id')
+        ->join('classrooms','lessons.classroom_id','classrooms.id')
+        ->join('branches','lessons.branch_id','branches.id')
+        ->select(
+            'lessons.id as lessonId',
+            'classrooms.name as classId',
+            'branches.name as branchId',
+            'lessons.lesson_code as lessonCode',
+            'lessons.lesson_name as lessonName',
+            'lessons.lesson_time as lessonTime',
+            )
+        ->get();
+        $message='Teacher Lessons';
+        return $this->sendResponse($teacher_lessons,$message);
     }
 }

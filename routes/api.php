@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\ClassroomAnnouncementController;
 use App\Http\Controllers\Api\BranchAnnouncementController;
+use App\Http\Controllers\Api\LessonContentController;
 use App\Http\Controllers\Api\ListForStudentController;
 use App\Http\Controllers\Api\ListForTeacherController;
 use App\Http\Controllers\Api\PersonalController;
@@ -124,12 +125,26 @@ Route::group([
     Route::post('add-branch-announcement', [BranchAnnouncementController::class, 'addAnnouncement'])->middleware('auth:sanctum');
     Route::post('update-branch-announcement/{id}', [BranchAnnouncementController::class, 'updateAnnouncement'])->middleware('auth:sanctum');
     Route::delete('delete-branch-announcement/{id}', [BranchAnnouncementController::class, 'deleteAnnouncement'])->middleware('auth:sanctum');
+    //Lesson Content
+    Route::post('add-lesson-content', [LessonContentController::class, 'addLessonContent'])->middleware('auth:sanctum');
+    Route::post('update-lesson-content/{id}', [LessonContentController::class, 'updateLessonContent'])->middleware('auth:sanctum');
+    Route::delete('delete-lesson-content/{id}', [LessonContentController::class, 'deleteLessonContent'])->middleware('auth:sanctum');
+    Route::post('get-lesson-contents', [LessonContentController::class, 'getContentsByLessonId'])->middleware('auth:sanctum');
+
+    //List
+    Route::get('get-teacher-lessons', [ListForTeacherController::class, 'getTeacherLessons'])->middleware('auth:sanctum');
+
+    
+
+    
     
 });
 Route::group([
     'prefix' => 'student'
 ], function () {
-
+    //List
+    Route::get('get-student-lessons', [ListForStudentController::class, 'getStudentLessons'])->middleware('auth:sanctum');
+    
 });
 Route::group([
     'prefix' => 'parent'
