@@ -11,10 +11,12 @@ use App\Http\Controllers\Api\BranchController;
 use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\ClassroomAnnouncementController;
 use App\Http\Controllers\Api\BranchAnnouncementController;
+use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\LessonContentController;
 use App\Http\Controllers\Api\ListForStudentController;
 use App\Http\Controllers\Api\ListForTeacherController;
 use App\Http\Controllers\Api\PersonalController;
+use App\Http\Controllers\Api\TextController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,7 +132,13 @@ Route::group([
     Route::post('update-lesson-content/{id}', [LessonContentController::class, 'updateLessonContent'])->middleware('auth:sanctum');
     Route::delete('delete-lesson-content/{id}', [LessonContentController::class, 'deleteLessonContent'])->middleware('auth:sanctum');
     Route::post('get-lesson-contents', [LessonContentController::class, 'getContentsByLessonId'])->middleware('auth:sanctum');
-
+    //Text To Lesson Content
+    Route::post('add-text', [TextController::class, 'addText'])->middleware('auth:sanctum');
+    Route::post('update-text/{id}', [TextController::class, 'updateText'])->middleware('auth:sanctum');
+    Route::delete('delete-text/{id}', [TextController::class, 'deleteText'])->middleware('auth:sanctum');
+    //Document To Lesson Content
+    Route::post('add-document', [DocumentController::class, 'addDocument'])->middleware('auth:sanctum');
+    Route::delete('delete-document/{id}', [DocumentController::class, 'deleteDocument'])->middleware('auth:sanctum');
     //List
     Route::get('get-teacher-lessons', [ListForTeacherController::class, 'getTeacherLessons'])->middleware('auth:sanctum');
 
