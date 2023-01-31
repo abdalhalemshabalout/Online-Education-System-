@@ -72,4 +72,15 @@ class DocumentController extends ApiController
         }
         return response()->json(['success'=>false]);
     }
+    //Get Documents  By lesson Content Id
+    public function getDocumentsLessonContent(Request $request){
+        $get_documents=Document::Where('lesson_content_id','=',$request->id)
+        ->join('lesson_contents','documents.lesson_content_id','lesson_contents.id')
+        ->select(
+            'lesson_contents.id as contentId',
+            'documents.id as documentId',
+            'documents.document as document')->get();
+        $message='Texts';
+        return $this->sendResponse($get_documents,$message);
+    }
 }

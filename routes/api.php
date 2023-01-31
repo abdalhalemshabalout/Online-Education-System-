@@ -144,9 +144,11 @@ Route::group([
     Route::post('add-text', [TextController::class, 'addText'])->middleware('auth:sanctum');
     Route::post('update-text/{id}', [TextController::class, 'updateText'])->middleware('auth:sanctum');
     Route::delete('delete-text/{id}', [TextController::class, 'deleteText'])->middleware('auth:sanctum');
+    Route::get('get-texts/{id}', [TextController::class, 'getTextsLessonContent'])->middleware('auth:sanctum');
     //Document To Lesson Content
     Route::post('add-document', [DocumentController::class, 'addDocument'])->middleware('auth:sanctum');
     Route::delete('delete-document/{id}', [DocumentController::class, 'deleteDocument'])->middleware('auth:sanctum');
+    Route::get('get-documents/{id}', [DocumentController::class, 'getDocumentsLessonContent'])->middleware('auth:sanctum');
     //List
     Route::get('get-teacher-lessons', [ListForTeacherController::class, 'getTeacherLessons'])->middleware('auth:sanctum');
 

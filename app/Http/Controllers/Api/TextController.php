@@ -60,4 +60,15 @@ class TextController extends ApiController
         }
         return response()->json(['success'=>false]);
     }
+    //Get Texts  By lesson Content Id
+    public function getTextsLessonContent(Request $request){
+        $get_texts=Text::Where('lesson_content_id','=',$request->id)
+        ->join('lesson_contents','texts.lesson_content_id','lesson_contents.id')
+        ->select(
+            'lesson_contents.id as contentId',
+            'texts.id as textId',
+            'texts.description as description')->get();
+        $message='Texts';
+        return $this->sendResponse($get_texts,$message);
+    }
 }
