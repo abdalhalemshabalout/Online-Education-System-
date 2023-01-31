@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\ClassroomAnnouncementController;
 use App\Http\Controllers\Api\BranchAnnouncementController;
 use App\Http\Controllers\Api\DocumentController;
+use App\Http\Controllers\Api\LessonAnnouncementController;
 use App\Http\Controllers\Api\LessonContentController;
 use App\Http\Controllers\Api\ListForStudentController;
 use App\Http\Controllers\Api\ListForTeacherController;
@@ -43,6 +44,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //Branch Announcement Route
     Route::get('get-list-branch-announcement', [BranchAnnouncementController::class, 'getAnnouncements']);
     Route::get('get-list-branch-announcement/{id}', [BranchAnnouncementController::class, 'getAnnouncement']);
+    //Lesson Announcement Route
+    Route::get('get-list-lesson-announcements/{id}', [LessonAnnouncementController::class, 'getLessonAnnouncements']);
+    Route::get('get-lesson-announcement/{id}', [LessonAnnouncementController::class, 'getLessonAnnouncement']);
     //List
     Route::get('get-all-teachers', [ListForTeacherController::class, 'getAllTeachers'])->middleware('auth:sanctum');
     Route::get('get-all-students', [ListForStudentController::class, 'getAllStudents'])->middleware('auth:sanctum');
@@ -127,6 +131,10 @@ Route::group([
     Route::post('add-branch-announcement', [BranchAnnouncementController::class, 'addAnnouncement'])->middleware('auth:sanctum');
     Route::post('update-branch-announcement/{id}', [BranchAnnouncementController::class, 'updateAnnouncement'])->middleware('auth:sanctum');
     Route::delete('delete-branch-announcement/{id}', [BranchAnnouncementController::class, 'deleteAnnouncement'])->middleware('auth:sanctum');
+    //Announcement Lesson 
+    Route::post('add-lesson-announcement', [LessonAnnouncementController::class, 'addLessonAnnouncement'])->middleware('auth:sanctum');
+    Route::post('update-lesson-announcement/{id}', [LessonAnnouncementController::class, 'updateLessonAnnouncement'])->middleware('auth:sanctum');
+    Route::delete('delete-lesson-announcement/{id}', [LessonAnnouncementController::class, 'deleteLessonAnnouncement'])->middleware('auth:sanctum');
     //Lesson Content
     Route::post('add-lesson-content', [LessonContentController::class, 'addLessonContent'])->middleware('auth:sanctum');
     Route::post('update-lesson-content/{id}', [LessonContentController::class, 'updateLessonContent'])->middleware('auth:sanctum');

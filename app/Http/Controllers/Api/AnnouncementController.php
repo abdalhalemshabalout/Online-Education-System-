@@ -72,7 +72,7 @@ class AnnouncementController extends ApiController
         return response()->json(['success'=>false]);
     }
     //Get Announcements
-    public function getAnnouncements(){
+    public function getLessonAnnouncements(){
         $get_announcement=Announcement::
         join('personals','announcements.personal_id','personals.id')
         ->select('announcements.id',
