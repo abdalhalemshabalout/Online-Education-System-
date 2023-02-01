@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\BranchAnnouncementController;
 use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\LessonAnnouncementController;
 use App\Http\Controllers\Api\LessonContentController;
+use App\Http\Controllers\Api\LinkController;
 use App\Http\Controllers\Api\ListForStudentController;
 use App\Http\Controllers\Api\ListForTeacherController;
 use App\Http\Controllers\Api\PersonalController;
@@ -149,6 +150,11 @@ Route::group([
     Route::post('add-document', [DocumentController::class, 'addDocument'])->middleware('auth:sanctum');
     Route::delete('delete-document/{id}', [DocumentController::class, 'deleteDocument'])->middleware('auth:sanctum');
     Route::get('get-documents/{id}', [DocumentController::class, 'getDocumentsLessonContent'])->middleware('auth:sanctum');
+    //Link To Lesson Content
+    Route::post('add-link', [LinkController::class, 'addLink'])->middleware('auth:sanctum');
+    Route::post('update-link/{id}', [LinkController::class, 'updateLink'])->middleware('auth:sanctum');
+    Route::delete('delete-link/{id}', [LinkController::class, 'deleteLink'])->middleware('auth:sanctum');
+    Route::get('get-links/{id}', [LinkController::class, 'getLinksLessonContent'])->middleware('auth:sanctum');
     //List
     Route::get('get-teacher-lessons', [ListForTeacherController::class, 'getTeacherLessons'])->middleware('auth:sanctum');
 
