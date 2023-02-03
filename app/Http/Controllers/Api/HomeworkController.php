@@ -85,11 +85,11 @@ class HomeworkController extends ApiController
                 'start_date' => $request->startDate,
                 'end_date' => $request->endDate,
             ]);
-            $message = 'Ödev güncellendi.';
+            $message = 'Homework updated successfully.';
             return $this->sendResponse($update_homework, $message);
         } catch (\Exception $e) {
 
-            $message = 'Ödev güncellenemedi.';
+            $message = 'Homework could not be updated.';
             return $this->sendError($e->getMessage());
         }
     }
