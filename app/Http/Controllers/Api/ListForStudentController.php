@@ -90,4 +90,19 @@ class ListForStudentController extends ApiController
         $message='Student Lessons';
         return $this->sendResponse($student_lessons,$message);
     }
+     //list Contents by Lesson id
+    public function getContentsByLessonId(Request $request){
+        $student_id = User::where('id','=',$request->user()->id)->get();
+        $studentLessonContent =LessonStudent::where('student_id','=',$student_id['0']['user_id'])
+        ->join('lesson_contents','lesson_students.lesson_id','=','lesson_contents.lesson_id')
+        ->where('lesson_contents.lesson_id','=',$request->input('lessonId'))
+        ->select(
+            'lesson_contents.id as contentId',
+            'lesson_contents.lesson_id as lessonId',
+            'lesson_contents.content_name as contentName',
+            'lesson_contents.created_at as Date',
+        )->get();
+        $message = 'Lesson Contens';
+        return $this->sendResponse($studentLessonContent, $message);
+    }
 }

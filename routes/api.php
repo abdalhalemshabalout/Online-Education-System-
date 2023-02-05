@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\ListForTeacherController;
 use App\Http\Controllers\Api\PersonalController;
 use App\Http\Controllers\Api\TestQuestionExam;
 use App\Http\Controllers\Api\TextController;
+use App\Http\Controllers\Api\SendHomeworkAnswerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,7 +187,12 @@ Route::group([
 ], function () {
     //List
     Route::get('get-student-lessons', [ListForStudentController::class, 'getStudentLessons'])->middleware('auth:sanctum');
-    
+    Route::post('get-lesson-contents', [ListForStudentController::class, 'getContentsByLessonId'])->middleware('auth:sanctum');
+    Route::get('get-homeworks/{id}', [HomeworkController::class, 'getHomeworksLessonContent'])->middleware('auth:sanctum');
+    //Send Homework
+    Route::post('send-homework-answer', [SendHomeworkAnswerController::class, 'sendHomework'])->middleware('auth:sanctum');
+    Route::post('update-homework-answer/{id}', [SendHomeworkAnswerController::class, 'updateSendHomework'])->middleware('auth:sanctum');
+    Route::delete('delete-homework-answer/{id}', [SendHomeworkAnswerController::class, 'deleteSendHomework'])->middleware('auth:sanctum');
 });
 Route::group([
     'prefix' => 'parent'
