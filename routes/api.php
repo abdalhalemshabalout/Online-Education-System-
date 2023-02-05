@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\LinkController;
 use App\Http\Controllers\Api\ListForStudentController;
 use App\Http\Controllers\Api\ListForTeacherController;
 use App\Http\Controllers\Api\PersonalController;
+use App\Http\Controllers\Api\TestQuestionExam;
 use App\Http\Controllers\Api\TextController;
 
 /*
@@ -167,6 +168,11 @@ Route::group([
     Route::post('update-exam/{id}', [ExamController::class, 'updateExam'])->middleware('auth:sanctum');
     Route::delete('delete-exam/{id}', [ExamController::class, 'deleteExam'])->middleware('auth:sanctum');
     Route::get('get-exams/{id}', [ExamController::class, 'getExamsLessonContent'])->middleware('auth:sanctum');
+    //Test Question To Exam
+    Route::post('add-test-question', [TestQuestionExam::class, 'addTestQuestion'])->middleware('auth:sanctum');
+    Route::post('update-test-question/{id}', [TestQuestionExam::class, 'updateTestQuestion'])->middleware('auth:sanctum');
+    Route::delete('delete-test-question/{id}', [TestQuestionExam::class, 'deleteTestQuestion'])->middleware('auth:sanctum');
+    Route::get('get-exam-questions/{id}', [TestQuestionExam::class, 'getExamQuestions'])->middleware('auth:sanctum');
     //List
     Route::get('get-teacher-lessons', [ListForTeacherController::class, 'getTeacherLessons'])->middleware('auth:sanctum');
 

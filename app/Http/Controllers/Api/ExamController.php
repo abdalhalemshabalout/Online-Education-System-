@@ -91,4 +91,5 @@ class ExamController extends ApiController
         $message='Exams';
         return $this->sendResponse($get_exams,$message);
     }
+
 }
