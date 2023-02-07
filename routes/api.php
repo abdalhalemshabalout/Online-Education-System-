@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\PersonalController;
 use App\Http\Controllers\Api\TestQuestionExam;
 use App\Http\Controllers\Api\TextController;
 use App\Http\Controllers\Api\SendHomeworkAnswerController;
+use App\Http\Controllers\Api\SendTestAnswerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,6 +194,10 @@ Route::group([
     Route::post('send-homework-answer', [SendHomeworkAnswerController::class, 'sendHomework'])->middleware('auth:sanctum');
     Route::post('update-homework-answer/{id}', [SendHomeworkAnswerController::class, 'updateSendHomework'])->middleware('auth:sanctum');
     Route::delete('delete-homework-answer/{id}', [SendHomeworkAnswerController::class, 'deleteSendHomework'])->middleware('auth:sanctum');
+    //Exam Question And Send Answer
+    Route::post('get-question', [SendTestAnswerController::class, 'getQuestion'])->middleware('auth:sanctum');
+    Route::post('send-answer', [SendTestAnswerController::class, 'sendAnswer'])->middleware('auth:sanctum');
+
 });
 Route::group([
     'prefix' => 'parent'
